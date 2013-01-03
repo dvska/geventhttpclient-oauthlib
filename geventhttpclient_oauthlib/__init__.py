@@ -5,9 +5,9 @@ from oauthlib.oauth1.rfc5849 import (
     Client, SIGNATURE_HMAC, SIGNATURE_TYPE_AUTH_HEADER)
 
 
-class OAUTH1Request(HTTPClient):
+class OAUTH1HTTPClient(HTTPClient):
     def __init__(self, *args, **kwargs):
-        super(OAUTH1Request, self).__init__(*args, **kwargs)
+        super(OAUTH1HTTPClient, self).__init__(*args, **kwargs)
         self.client = None
 
     def set_oauth_params(
@@ -36,5 +36,5 @@ class OAUTH1Request(HTTPClient):
             http_method=method,
             body=body,
             headers=headers)
-        return super(OAUTH1Request, self)._build_request(
+        return super(OAUTH1HTTPClient, self)._build_request(
             method, uri, body="", headers=headers)
