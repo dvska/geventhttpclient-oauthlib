@@ -10,8 +10,9 @@ class OAUTH1HTTPClient(HTTPClient):
         super(OAUTH1HTTPClient, self).__init__(*args, **kwargs)
         self.client = None
 
-    def set_oauth_params(
-            self, client_key,
+    @classmethod
+    def from_oauth_params(
+            cls, url, client_key,
             client_secret=None,
             resource_owner_key=None,
             resource_owner_secret=None,
@@ -19,11 +20,19 @@ class OAUTH1HTTPClient(HTTPClient):
             signature_method=SIGNATURE_HMAC,
             signature_type=SIGNATURE_TYPE_AUTH_HEADER,
             rsa_key=None, verifier=None, realm=None,
-            convert_to_unicode=False, encoding='utf-8'):
-        self.client = Client(
+            convert_to_unicode=False, encoding='utf-8',
+            **kwargs):
+        """
+            just wrap original from_url to also init an oauthclient.
+
+            url can be an string or URL instance
+        """
+        instance = cls.from_url(url, **kwargs)
+        instance.client = Client(
             client_key, client_secret, resource_owner_key,
             resource_owner_secret, callback_uri, signature_method,
             signature_type, rsa_key, verifier)
+        return instance
 
     def _build_request(self, method, request_uri, body=u"", headers={}):
         # oauthlib expects None instead of empty string

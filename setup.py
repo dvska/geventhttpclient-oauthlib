@@ -7,7 +7,7 @@ setup(
     version='0.1a',
     install_requires=[
         'geventhttpclient>=1.0a',
-        'oauthlib>=0.3.0',],
+        'oauthlib>=0.3.0'],
     url='https://github.com/jneight/geventhttpclient-oauthlib',
     packages=find_packages(),
     include_package_data=True,
