@@ -57,13 +57,13 @@ class OAUTH1HTTPClient(HTTPClient):
                     body=extracted_body,
                     headers=headers)
             elif contenttype == CONTENT_TYPE_MULTI:
-                uri, headers, body = self.client.sign(
+                uri, headers, _discard = self.client.sign(
                     uri=request_uri,
                     http_method=method,
                     body=None,
                     headers=headers)
         else:
-            uri, headers, body = self.client.sign(
+            uri, headers, _discard = self.client.sign(
                 uri=request_uri,
                 http_method=method,
                 body=None,
